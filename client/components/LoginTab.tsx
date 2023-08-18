@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Card,
   CardContent,
@@ -15,6 +15,7 @@ import * as yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "@/api/auth";
 import axios from "axios";
+import { AuthContext, IAuthContextType } from "./AuthContext";
 
 interface LoginFormFormikProps {
   email: string;
@@ -23,6 +24,8 @@ interface LoginFormFormikProps {
 const LoginTab = () => {
   const router = useRouter();
   const [serverLoginError, setServerLoginError] = useState("");
+
+  const { setUser } = useContext(AuthContext) as IAuthContextType;
 
   const formik = useFormik<LoginFormFormikProps>({
     initialValues: {
@@ -56,6 +59,7 @@ const LoginTab = () => {
     },
     onSuccess: (values) => {
       localStorage.setItem("user", JSON.stringify(values));
+      // setUser(values?.user);
       router.push("/");
     },
     onError: (err: ReturnType<ErrorConstructor>) => {

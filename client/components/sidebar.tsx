@@ -1,4 +1,4 @@
-import { getCollectionNotes } from "@/api/collection";
+import { NoteInterface, getCollectionNotes } from "@/api/collection";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -11,7 +11,9 @@ import { IContextType, NoteContext } from "./NoteContext";
 const Sidebar = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { selectedNote, setSelectedNote } = useContext(NoteContext) as IContextType;
+  const { selectedNote, setSelectedNote } = useContext(
+    NoteContext
+  ) as IContextType;
 
   // Load all the notes of this collection
   const { isLoading, data } = useQuery({
@@ -47,38 +49,46 @@ const Sidebar = () => {
         }
       }
     },
-    onSuccess: (values) => {
-      console.log(values);
+    onSuccess: (note) => {
       queryClient.refetchQueries([
         "get-collection-notes",
         `${router.query["id"]}`,
       ]);
-      setSelectedNote(values?._id as string)
+      setSelectedNote(note as NoteInterface);
     },
   });
 
   return (
-    <div className="sidebar w-[20%] p-4 border-r h-screen">
-      <div className="border-b sidebar-tools flex items-center justify-end">
+    <div className="sidebar w-[20%] border-r h-screen">
+      <div className="border-b sidebar-tools flex items-center justify-end p-4">
         <span
-          className="p-2 border mb-2 cursor-pointer hover:bg-gray-100"
+          className="p-2 border rounded-sm text-sm cursor-pointer hover:bg-gray-100 flex items-center"
           onClick={() => mutate()}
         >
           <Plus size={20} />
+          &nbsp;New Note
         </span>
       </div>
-      {data?.notes.map((note) => (
-        <div
-          className={clsx(
-            "cursor-pointer font-secondary px-3 py-1 my-1 text-sm transition-colors flex items-center rounded-sm",
-            selectedNote === note._id
-              ? "bg-[#f6f6f6] text-gray-900 hover:bg-[#f6f6f6] dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800 dark:hover:text-white"
-              : "hover:bg-[#f6f6f6] dark:hover:bg-zinc-900 dark:hover:text-white"
-          )}
-        >
-          {note.title}
-        </div>
-      ))}
+      <div className="p-4">
+        {data?.notes.length === 0 && (
+          <div className="flex items-center justify-center h-[80vh] text-center text-sm text-gray-400">
+            No Notes to show. Click on 'New Note' to create a new note!
+          </div>
+        )}
+        {data?.notes.map((note) => (
+          <div
+            className={clsx(
+              "cursor-pointer font-secondary px-3 py-1 my-1 text-sm transition-colors flex items-center rounded-sm",
+              selectedNote?._id === note._id
+                ? "bg-[#f6f6f6] text-gray-900 hover:bg-[#f6f6f6] dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800 dark:hover:text-white"
+                : "hover:bg-[#f6f6f6] dark:hover:bg-zinc-900 dark:hover:text-white"
+            )}
+            onClick={() => setSelectedNote(note)}
+          >
+            {note.title}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

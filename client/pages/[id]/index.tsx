@@ -1,15 +1,22 @@
+import { useContext } from "react";
 import HomeLayout from "@/components/HomeLayout";
-import Sidebar from "@/components/sidebar";
+import MarkdownEditor from "@/components/MarkdownEditor";
+import Sidebar from "@/components/Sidebar";
+import { IContextType, NoteContext } from "@/components/NoteContext";
 
 const Collection = () => {
+  const { selectedNote } = useContext(NoteContext) as IContextType;
+
   return (
     <HomeLayout>
       <Sidebar />
       <div className="editor w-[60%]">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non quos
-        quaerat minus. Adipisci maxime nisi autem ducimus amet magni iure,
-        repellat deleniti laboriosam, eveniet culpa dicta! Incidunt obcaecati
-        tenetur laborum.
+        {selectedNote && (
+          <MarkdownEditor
+            title={selectedNote?.title}
+            body={selectedNote?.body}
+          />
+        )}
       </div>
     </HomeLayout>
   );

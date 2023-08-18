@@ -10,7 +10,6 @@ const HomeLayout: React.FC<{ children: JSX.Element | JSX.Element[] }> = ({
     <section className="flex">
       <Appbar />
       {children}
-      
     </section>
   );
 };
