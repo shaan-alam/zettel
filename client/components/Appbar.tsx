@@ -7,7 +7,14 @@ import clsx from "clsx";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { AuthContext, IAuthContextType } from "./AuthContext";
-import { LogOut } from "lucide-react";
+import {
+  Folder,
+  FolderClosed,
+  FolderClosedIcon,
+  FolderCog,
+  FolderIcon,
+  LogOut,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 
@@ -46,7 +53,7 @@ const Appbar = () => {
         </div>
       </div>
       <ScrollArea className="h-[90vh]">
-        <div className="p-4">
+        <div>
           <CreateCollectionDialog />
           {!isLoading &&
             data &&
@@ -54,13 +61,18 @@ const Appbar = () => {
               <Link href={`/${collection._id}`}>
                 <div
                   className={clsx(
-                    "font-secondary px-3 py-1 my-1 text-sm transition-colors flex items-center rounded-sm",
+                    "font-secondary px-3 py-1 my-1 text-sm transition-colors flex items-center",
                     router.query["id"] === collection._id
                       ? "bg-[#f6f6f6] text-gray-900 hover:bg-[#f6f6f6] dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800 dark:hover:text-white"
                       : "hover:bg-[#f6f6f6] dark:hover:bg-zinc-900 dark:hover:text-white"
                   )}
                 >
-                  {collection.collectionName}
+                  <Folder
+                    size={20}
+                    fill={collection.colorCoding}
+                    color={collection.colorCoding}
+                  />
+                  &nbsp;{collection.collectionName}
                 </div>
               </Link>
             ))}

@@ -16,6 +16,7 @@ import axios from "axios";
 import { Button } from "./ui/button";
 import { useRouter } from "next/router";
 import { IContextType, NoteContext } from "./NoteContext";
+import { useToast } from "@/components/ui/use-toast";
 
 interface DeleteNoteAlertProps {
   noteId: string;
@@ -30,6 +31,7 @@ const DeleteNoteAlert: React.FC<DeleteNoteAlertProps> = ({
 }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const { toast } = useToast();
 
   const { setSelectedNote } = useContext(NoteContext) as IContextType;
 
@@ -44,12 +46,16 @@ const DeleteNoteAlert: React.FC<DeleteNoteAlertProps> = ({
       }
     },
     onSuccess: () => {
-      setIsOpen(false);
+      // setIsOpen(false);
       queryClient.refetchQueries([
         "get-collection-notes",
         `${router.query["id"]}`,
       ]);
       setSelectedNote(null);
+      toast({
+        title: "Task completed!",
+        description: "Your note has been sucessfully deleted from our servers!",
+      });
     },
   });
 

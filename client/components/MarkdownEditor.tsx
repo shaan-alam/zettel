@@ -28,7 +28,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
   const [editorTitle, setEditorTitle] = useState(title);
   const [editorContent, setEditorContent] = useState(body);
   const [isViewOnlyMode, setIsViewOnlyMode] = useState(false);
-  const [deleteNoteAlert, setDeleteNoteAlert] = useState(false);
+  const [showDeleteNoteAlert, setShowDeleteNoteAlert] = useState(false);
 
   const debouncedEditorTitle = useDebounce(editorTitle, 1000);
   const debouncedEditorContent = useDebounce(editorContent, 1000);
@@ -88,11 +88,11 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
         </span>
         <span
           className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-red-500"
-          onClick={() => setDeleteNoteAlert(true)}
+          onClick={() => setShowDeleteNoteAlert(true)}
         >
           <DeleteNoteAlert
-            open={deleteNoteAlert}
-            setIsOpen={setDeleteNoteAlert}
+            open={showDeleteNoteAlert}
+            setIsOpen={setShowDeleteNoteAlert}
             noteId={selectedNote?._id as string}
           />
         </span>
