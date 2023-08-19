@@ -14,6 +14,7 @@ import { Camera, EyeIcon, EyeOffIcon, Trash, TrashIcon } from "lucide-react";
 import MarkdownPreview from "./MarkdownPreview";
 import DeleteNoteAlert from "./DeleteNoteAlert";
 import { ScrollArea } from "./ui/scroll-area";
+import PhotoUploadDialog from "./PhotoUploadDialog";
 
 interface MarkdownEditorProps {
   title: string | undefined;
@@ -28,6 +29,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
   const [editorTitle, setEditorTitle] = useState(title);
   const [editorContent, setEditorContent] = useState(body);
   const [isViewOnlyMode, setIsViewOnlyMode] = useState(false);
+  const [showPhotoUploadDialog, setShowPhotoUploadDialog] = useState(false);
 
   const debouncedEditorTitle = useDebounce(editorTitle, 1000);
   const debouncedEditorContent = useDebounce(editorContent, 1000);
@@ -82,9 +84,16 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
             <EyeIcon size={20} />
           </span>
         )}
-        <span className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4">
+        <span
+          className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4"
+          onClick={() => setShowPhotoUploadDialog(true)}
+        >
           <Camera size={20} />
         </span>
+        <PhotoUploadDialog
+          open={showPhotoUploadDialog}
+          setIsOpen={setShowPhotoUploadDialog}
+        />
         <span className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-red-500">
           <DeleteNoteAlert noteId={selectedNote?._id as string} />
         </span>
