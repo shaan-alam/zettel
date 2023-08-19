@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useFormik } from "formik";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCollection } from "@/api/collection";
@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import FormInput from "@/components/FormInput";
 import { ChromePicker } from "react-color";
 import { Button } from "@/components/ui/button";
+import { IContextType, NoteContext } from "./NoteContext";
 
 interface CreateCollectionDialogProps {
   open: boolean;
@@ -28,6 +29,8 @@ const CreateCollectionDialog: React.FC<CreateCollectionDialogProps> = ({
   setIsOpen,
 }) => {
   const queryClient = useQueryClient();
+
+  const { setSelectedNote } = useContext(NoteContext) as IContextType;
 
   const [serverErrorResponse, setServerErrorResponse] = useState<string>("");
   const [isColorPickerVisible, setColorPickerVisible] = useState(false);
@@ -64,6 +67,7 @@ const CreateCollectionDialog: React.FC<CreateCollectionDialogProps> = ({
       onSuccess: () => {
         queryClient.invalidateQueries(["get-collections"]);
         setIsOpen(false);
+        setSelectedNote(null);
       },
       onError: (err: ReturnType<ErrorConstructor>) => {
         setServerErrorResponse(err.message);

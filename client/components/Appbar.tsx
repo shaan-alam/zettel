@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
+import { ModeToggle } from "./theme-toggle";
 
 const Appbar = () => {
   const router = useRouter();
@@ -62,6 +63,9 @@ const Appbar = () => {
               <LogOut size={20} />
             </span>
           </Button>
+        </div>
+        <div className="theme-toggler">
+          <ModeToggle></ModeToggle>
         </div>
       </div>
       <ScrollArea className="h-[90vh]">

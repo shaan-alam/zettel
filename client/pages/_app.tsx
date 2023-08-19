@@ -5,17 +5,20 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import NoteContextProvider from "@/components/NoteContext";
 import AuthContextProvider from "@/components/AuthContext";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const client = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={client}>
-      <AuthContextProvider>
-        <NoteContextProvider>
-          <Component {...pageProps} />
-        </NoteContextProvider>
-      </AuthContextProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <AuthContextProvider>
+          <NoteContextProvider>
+            <Component {...pageProps} />
+          </NoteContextProvider>
+        </AuthContextProvider>
+      </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

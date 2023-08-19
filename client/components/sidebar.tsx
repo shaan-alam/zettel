@@ -64,7 +64,7 @@ const Sidebar = () => {
     <div className="sidebar w-[20%] border-r h-screen">
       <div className="border-b sidebar-tools flex items-center justify-end p-4">
         <span
-          className="p-2 border rounded-sm text-sm cursor-pointer hover:bg-gray-100 flex items-center"
+          className="p-2 border rounded-sm text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-800 flex items-center"
           onClick={() => mutate()}
         >
           <Plus size={20} />

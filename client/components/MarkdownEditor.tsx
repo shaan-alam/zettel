@@ -71,21 +71,21 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
       <div className="flex items-center justify-start p-4 border-b">
         {isViewOnlyMode ? (
           <span
-            className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4"
+            className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4 dark:hover:bg-zinc-800"
             onClick={() => setIsViewOnlyMode(false)}
           >
             <EyeOffIcon size={20} />
           </span>
         ) : (
           <span
-            className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4"
+            className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4 dark:hover:bg-zinc-800"
             onClick={() => setIsViewOnlyMode(true)}
           >
             <EyeIcon size={20} />
           </span>
         )}
         <span
-          className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4"
+          className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4 dark:hover:bg-zinc-800"
           onClick={() => setShowPhotoUploadDialog(true)}
         >
           <Camera size={20} />
@@ -94,7 +94,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
           open={showPhotoUploadDialog}
           setIsOpen={setShowPhotoUploadDialog}
         />
-        <span className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-red-500">
+        <span   className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-red-500 mr-4 dark:hover:bg-zinc-800">
           <DeleteNoteAlert noteId={selectedNote?._id as string} />
         </span>
         <span className="ml-4">
