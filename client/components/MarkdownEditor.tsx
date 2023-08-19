@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { Camera, EyeIcon, EyeOffIcon, Trash, TrashIcon } from "lucide-react";
 import MarkdownPreview from "./MarkdownPreview";
 import DeleteNoteAlert from "./DeleteNoteAlert";
+import { ScrollArea } from "./ui/scroll-area";
 
 interface MarkdownEditorProps {
   title: string | undefined;
@@ -99,35 +100,36 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
           {isLoading && <p className="text-gray-300 italic">Saving...</p>}
         </span>
       </div>
-
-      {isViewOnlyMode ? (
-        <MarkdownPreview title={title} body={editorContent} />
-      ) : (
-        <div>
-          <textarea
-            className="w-full bg-transparent text-lg font-bold px-2 py-3 outline-none resize-none overflow-hidden text-black dark:text-white"
-            rows={1}
-            autoFocus
-            placeholder="Title"
-            onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-              if (e.keyCode === 13) {
-                return e.preventDefault();
+      <ScrollArea className="h-[88vh]">
+        {isViewOnlyMode ? (
+          <MarkdownPreview title={title} body={editorContent} />
+        ) : (
+          <div>
+            <textarea
+              className="w-full bg-transparent text-lg font-bold px-2 py-3 outline-none resize-none overflow-hidden text-black dark:text-white"
+              rows={1}
+              autoFocus
+              placeholder="Title"
+              onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+                if (e.keyCode === 13) {
+                  return e.preventDefault();
+                }
+              }}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                setEditorTitle(e.target.value)
               }
-            }}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              setEditorTitle(e.target.value)
-            }
-            value={editorTitle}
-          ></textarea>
-          <CodeEditor
-            placeholder="Start Typing..."
-            padding={10}
-            value={editorContent as string}
-            onValueChange={(code) => setEditorContent(code)}
-            highlight={(code) => highlight(code, languages.js)}
-          />
-        </div>
-      )}
+              value={editorTitle}
+            ></textarea>
+            <CodeEditor
+              placeholder="Start Typing..."
+              padding={10}
+              value={editorContent as string}
+              onValueChange={(code) => setEditorContent(code)}
+              highlight={(code) => highlight(code, languages.js)}
+            />
+          </div>
+        )}
+      </ScrollArea>
     </div>
   );
 };

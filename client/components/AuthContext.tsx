@@ -1,15 +1,9 @@
+import { UserInterface } from "@/api/auth";
 import { createContext, useState } from "react";
 
-interface IUser {
-  avatar: string;
-  email: string;
-  fullName: string;
-  _id: string;
-}
-
 export interface IAuthContextType {
-  user: IUser | null;
-  setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+  user: UserInterface | null;
+  setUser: React.Dispatch<React.SetStateAction<UserInterface | null>>;
 }
 
 export const AuthContext = createContext<IAuthContextType | null>(null);
@@ -17,7 +11,7 @@ export const AuthContext = createContext<IAuthContextType | null>(null);
 const AuthContextProvider: React.FC<{
   children: JSX.Element | JSX.Element[];
 }> = ({ children }) => {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<UserInterface | null>(null);
 
   return (
     <AuthContext.Provider

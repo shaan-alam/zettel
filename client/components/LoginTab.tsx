@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useMutation } from "@tanstack/react-query";
-import { signIn } from "@/api/auth";
+import { UserInterface, signIn } from "@/api/auth";
 import axios from "axios";
 import { AuthContext, IAuthContextType } from "./AuthContext";
 
@@ -59,7 +59,7 @@ const LoginTab = () => {
     },
     onSuccess: (values) => {
       localStorage.setItem("user", JSON.stringify(values));
-      // setUser(values?.user);
+      setUser(values?.user as UserInterface);
       router.push("/");
     },
     onError: (err: ReturnType<ErrorConstructor>) => {

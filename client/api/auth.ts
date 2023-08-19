@@ -2,7 +2,7 @@ import { getAPIInstance } from '@/api'
 
 const API = getAPIInstance();
 
-interface UserInterface {
+export interface UserInterface {
   _id: string;
   email: string;
   fullName: string;
