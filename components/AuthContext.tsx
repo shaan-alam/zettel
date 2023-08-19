@@ -27,7 +27,7 @@ const AuthContextProvider: React.FC<{
     } else {
       router.push("/auth");
     }
-  }, []);
+  }, [router]);
 
   return (
     <AuthContext.Provider

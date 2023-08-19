@@ -75,11 +75,13 @@ const Sidebar = () => {
         <div>
           {data?.notes.length === 0 && (
             <div className="flex items-center justify-center h-[80vh] text-center text-sm text-gray-400">
-              No Notes to show. Click on 'New Note' to create a new note!
+              No Notes to show. Click on &apos;New Note&apos; to create a new
+              note!
             </div>
           )}
           {data?.notes.map((note) => (
             <div
+              key={note._id}
               className={clsx(
                 "cursor-pointer font-secondary text-sm transition-colors p-4",
                 selectedNote?._id === note._id
@@ -88,8 +90,8 @@ const Sidebar = () => {
               )}
               onClick={() => setSelectedNote(note)}
             >
-              <h1 className='font-bold'>{note.title}</h1>
-              <p className='text-muted-foreground mt-2'>
+              <h1 className="font-bold">{note.title}</h1>
+              <p className="text-muted-foreground mt-2">
                 <ReactTruncate
                   line={2}
                   element="span"

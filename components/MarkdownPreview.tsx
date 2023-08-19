@@ -11,8 +11,8 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ title, body }) => {
   return (
     <div className="markdown-preview px-4 py-2 overflow-auto leading-7 [&>*]:my-2 [&>h1]:text-6xl [&>h2]:text-5xl [&>h3]:text-4xl [&>h4]:text-3xl [&>h5]:text-3xl [&>h6]:text-2xl [&>h1]:my-6 [&>h2]:my-6 [&>h3]:my-6 [&>h4]:my-6 [&>h5]:my-6 [&>h6]:my-6 [&>h1]:font-bold [&>h2]:font-bold [&>h3]:font-bold [&>h4]:font-bold [&>h5]:font-bold [&>h6]:font-bold  dark:[&>*]:text-gray-200">
       <h6>{title}</h6>
+      {/* @ts-ignore */}
       <ReactMarkdown
-        children={body as string}
         remarkPlugins={[remarkGfm]}
         components={{
           a: ({ children, href, ...props }: any) => {
@@ -34,7 +34,9 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ title, body }) => {
             return <img src={props.src} alt={props.alt} className="my-4" />;
           },
         }}
-      />
+      >
+        {body}
+      </ReactMarkdown>
     </div>
   );
 };

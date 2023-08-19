@@ -59,7 +59,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
       title: debouncedEditorTitle,
       body: debouncedEditorContent as string,
     });
-  }, [debouncedEditorTitle, debouncedEditorContent]);
+  }, [debouncedEditorTitle, debouncedEditorContent, mutate, selectedNote?._id]);
 
   useEffect(() => {
     setEditorTitle(title);
@@ -94,7 +94,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
           open={showPhotoUploadDialog}
           setIsOpen={setShowPhotoUploadDialog}
         />
-        <span   className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-red-500 mr-4 dark:hover:bg-zinc-800">
+        <span className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-red-500 mr-4 dark:hover:bg-zinc-800">
           <DeleteNoteAlert noteId={selectedNote?._id as string} />
         </span>
         <span className="ml-4">

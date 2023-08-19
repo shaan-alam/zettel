@@ -14,7 +14,7 @@ const CodeBlock = ({ code, language }: CodeBlockProps) => {
   useEffect(() => {
     setCodeBlock(code);
     setLang(language);
-  }, []);
+  }, [code, language]);
  
   return (
     codeBlock && (
