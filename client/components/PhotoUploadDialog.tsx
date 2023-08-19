@@ -108,6 +108,11 @@ const PhotoUploadDialog: React.FC<PhotoUploadDialogProps> = ({
                   {fileDropError}
                 </span>
               )}
+              {fileUploadError && (
+                <span className="text-red-500 text-sm mb-2 block">
+                  {fileUploadError}
+                </span>
+              )}
               <label
                 htmlFor="input"
                 className="h-[100px] flex items-center justify-center w-full border-dashed border-gray-400 border-2 cursor-pointer hover:border-gray-600"
