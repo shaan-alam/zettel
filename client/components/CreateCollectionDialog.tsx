@@ -18,7 +18,15 @@ import FormInput from "@/components/FormInput";
 import { ChromePicker } from "react-color";
 import { Button } from "@/components/ui/button";
 
-const CreateCollectionDialog = () => {
+interface CreateCollectionDialogProps {
+  open: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const CreateCollectionDialog: React.FC<CreateCollectionDialogProps> = ({
+  open,
+  setIsOpen,
+}) => {
   const queryClient = useQueryClient();
 
   const [serverErrorResponse, setServerErrorResponse] = useState<string>("");
@@ -55,6 +63,7 @@ const CreateCollectionDialog = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["get-collections"]);
+        setIsOpen(false);
       },
       onError: (err: ReturnType<ErrorConstructor>) => {
         setServerErrorResponse(err.message);
@@ -63,13 +72,7 @@ const CreateCollectionDialog = () => {
   );
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <div className="font-secondary px-3 py-2 text-sm transition-colors hover:bg-[#eee] hover:text-black dark:hover:bg-zinc-800 dark:hover:text-white flex items-center rounded-sm cursor-pointer">
-          <Plus size={15} />
-          &nbsp;New Collection
-        </div>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={() => setIsOpen(false)}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Create a new collection</DialogTitle>

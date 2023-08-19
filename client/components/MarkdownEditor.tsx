@@ -118,7 +118,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
               value={editorContent as string}
               onValueChange={(code) => setEditorContent(code)}
               highlight={(code) => highlight(code, languages.js)}
-              className="outline-none"
+              className="[&>textarea]:outline-none font-mono"
             />
           </div>
         )}

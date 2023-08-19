@@ -21,7 +21,6 @@ const Sidebar = () => {
   const { refetch: fetchCollectionNotes, isLoading } = useQuery(
     ["get-collection-notes", router.query["id"]],
     async () => {
-      queryClient.cancelQueries({ queryKey: ["get-collection-notes"] });
       try {
         const res = await getCollectionNotes(router.query["id"] as string);
         return res.data;
@@ -38,7 +37,7 @@ const Sidebar = () => {
     }
   );
 
-  const { mutate, data } = useMutation(
+  const { mutateAsync, data } = useMutation(
     async (noteData: CreateNoteRequestBody) => {
       try {
         const result = await createNote(noteData);
@@ -54,10 +53,7 @@ const Sidebar = () => {
         // error creating a new note
       },
       onSuccess: (note) => {
-        queryClient.refetchQueries([
-          "get-collection-notes",
-          router.query["id"],
-        ]);
+        queryClient.refetchQueries(["get-collection-notes"]);
         setSelectedNote(note as NoteInterface);
       },
     }
@@ -68,7 +64,7 @@ const Sidebar = () => {
   }, [fetchCollectionNotes]);
 
   const createNewDoc = () => {
-    mutate({
+    mutateAsync({
       title: "Untitled",
       body: "",
       collection: router.query["id"] as string,

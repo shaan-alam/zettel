@@ -1,5 +1,6 @@
-import { UserInterface } from "@/api/auth";
-import { createContext, useState } from "react";
+import { AuthResponseInterface, UserInterface } from "@/api/auth";
+import { createContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export interface IAuthContextType {
   user: UserInterface | null;
@@ -12,6 +13,21 @@ const AuthContextProvider: React.FC<{
   children: JSX.Element | JSX.Element[];
 }> = ({ children }) => {
   const [user, setUser] = useState<UserInterface | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const payload: AuthResponseInterface = JSON.parse(
+      localStorage.getItem("user") || "{}"
+    );
+    const token = payload.token || "";
+
+    if (token !== "") {
+      setUser(payload.user);
+      router.push("/");
+    } else {
+      router.push("/auth");
+    }
+  }, []);
 
   return (
     <AuthContext.Provider
