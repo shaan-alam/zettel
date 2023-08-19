@@ -81,7 +81,7 @@ const Sidebar = () => {
           {data?.notes.map((note) => (
             <div
               className={clsx(
-                "cursor-pointer font-secondary px-3 py-1 text-sm transition-colors my-4",
+                "cursor-pointer font-secondary text-sm transition-colors p-4",
                 selectedNote?._id === note._id
                   ? "bg-[#f6f6f6] text-gray-900 hover:bg-[#f6f6f6] dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800 dark:hover:text-white"
                   : "hover:bg-[#f6f6f6] dark:hover:bg-zinc-900 dark:hover:text-white"

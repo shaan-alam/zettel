@@ -61,7 +61,7 @@ const Appbar = () => {
               <Link href={`/${collection._id}`}>
                 <div
                   className={clsx(
-                    "font-secondary px-3 py-1 my-1 text-sm transition-colors flex items-center",
+                    "font-secondary px-3 py-1 my-1 text-sm transition-colors flex items-center-sm",
                     router.query["id"] === collection._id
                       ? "bg-[#f6f6f6] text-gray-900 hover:bg-[#f6f6f6] dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800 dark:hover:text-white"
                       : "hover:bg-[#f6f6f6] dark:hover:bg-zinc-900 dark:hover:text-white"

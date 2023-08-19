@@ -20,15 +20,9 @@ import { useToast } from "@/components/ui/use-toast";
 
 interface DeleteNoteAlertProps {
   noteId: string;
-  open: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DeleteNoteAlert: React.FC<DeleteNoteAlertProps> = ({
-  noteId,
-  open,
-  setIsOpen,
-}) => {
+const DeleteNoteAlert: React.FC<DeleteNoteAlertProps> = ({ noteId }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { toast } = useToast();
@@ -46,28 +40,27 @@ const DeleteNoteAlert: React.FC<DeleteNoteAlertProps> = ({
       }
     },
     onSuccess: () => {
-      // setIsOpen(false);
+      toast({
+        title: "Task completed!",
+        description: "Your note has been sucessfully deleted!",
+      });
       queryClient.refetchQueries([
         "get-collection-notes",
         `${router.query["id"]}`,
       ]);
       setSelectedNote(null);
-      toast({
-        title: "Task completed!",
-        description: "Your note has been sucessfully deleted from our servers!",
-      });
     },
   });
 
   return (
     <div>
-      <AlertDialog open={open}>
+      <AlertDialog>
         <AlertDialogTrigger>
           <TrashIcon size={20} />
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete your
               note and remove your data from our servers.

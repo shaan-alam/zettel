@@ -28,7 +28,6 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
   const [editorTitle, setEditorTitle] = useState(title);
   const [editorContent, setEditorContent] = useState(body);
   const [isViewOnlyMode, setIsViewOnlyMode] = useState(false);
-  const [showDeleteNoteAlert, setShowDeleteNoteAlert] = useState(false);
 
   const debouncedEditorTitle = useDebounce(editorTitle, 1000);
   const debouncedEditorContent = useDebounce(editorContent, 1000);
@@ -86,15 +85,8 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
         <span className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4">
           <Camera size={20} />
         </span>
-        <span
-          className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-red-500"
-          onClick={() => setShowDeleteNoteAlert(true)}
-        >
-          <DeleteNoteAlert
-            open={showDeleteNoteAlert}
-            setIsOpen={setShowDeleteNoteAlert}
-            noteId={selectedNote?._id as string}
-          />
+        <span className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-red-500">
+          <DeleteNoteAlert noteId={selectedNote?._id as string} />
         </span>
         <span className="ml-4">
           {isLoading && <p className="text-gray-300 italic">Saving...</p>}
@@ -126,6 +118,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
               value={editorContent as string}
               onValueChange={(code) => setEditorContent(code)}
               highlight={(code) => highlight(code, languages.js)}
+              className="outline-none"
             />
           </div>
         )}
