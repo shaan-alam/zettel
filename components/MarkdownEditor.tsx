@@ -60,7 +60,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
       title: debouncedEditorTitle,
       body: debouncedEditorContent as string,
     });
-  }, [debouncedEditorTitle, debouncedEditorContent, mutate, selectedNote?._id]);
+  }, [debouncedEditorTitle, debouncedEditorContent]);
 
   useEffect(() => {
     setEditorTitle(title);
