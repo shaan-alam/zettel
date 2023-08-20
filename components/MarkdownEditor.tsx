@@ -90,10 +90,6 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
         >
           <Camera size={20} />
         </span>
-        <PhotoUploadDialog
-          open={showPhotoUploadDialog}
-          setIsOpen={setShowPhotoUploadDialog}
-        />
         <span className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-red-500 mr-4 dark:hover:bg-zinc-800">
           <DeleteNoteAlert noteId={selectedNote?._id as string} />
         </span>
@@ -101,6 +97,10 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
           {isLoading && <p className="text-gray-300 italic">Saving...</p>}
         </span>
       </div>
+      <PhotoUploadDialog
+        open={showPhotoUploadDialog}
+        setIsOpen={setShowPhotoUploadDialog}
+      />
       <ScrollArea className="h-[88vh]">
         {isViewOnlyMode ? (
           <MarkdownPreview title={title} body={editorContent} />

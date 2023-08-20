@@ -24,7 +24,7 @@ const PhotoUploadDialog: React.FC<PhotoUploadDialogProps> = ({
   open,
   setIsOpen,
 }) => {
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<File | null>(null);
   const [fileUploadProgress, setFileUploadProgress] = useState(0);
   const [fileUploadError, setFileUploadError] = useState("");
   const [fileURL, setFileURL] = useState("");
@@ -91,8 +91,15 @@ const PhotoUploadDialog: React.FC<PhotoUploadDialogProps> = ({
     );
   };
 
+  const closeDialog = () => {
+    setFile(null);
+    setFileUploadProgress(0);
+    setFileURL("");
+    setIsOpen(false);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={() => setIsOpen(false)}>
+    <Dialog open={open} onOpenChange={closeDialog}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Upload a Photo</DialogTitle>
@@ -147,7 +154,9 @@ const PhotoUploadDialog: React.FC<PhotoUploadDialogProps> = ({
           {fileURL && (
             <Input
               value={`![alt text](${fileURL})`}
-              onClick={() => navigator.clipboard.writeText(`![alt text](${fileURL})`)}
+              onClick={() =>
+                navigator.clipboard.writeText(`![alt text](${fileURL})`)
+              }
               className="mt-2 block"
             />
           )}
