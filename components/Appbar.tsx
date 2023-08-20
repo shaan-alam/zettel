@@ -57,7 +57,7 @@ const Appbar = () => {
         <div className="logout-btn">
           <Button variant="link">
             <span
-              className="p-2 block hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4"
+              className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4 dark:hover:bg-zinc-800"
               onClick={logOut}
             >
               <LogOut size={20} />
@@ -71,7 +71,7 @@ const Appbar = () => {
       <ScrollArea className="h-[90vh]">
         <div>
           <div
-            className="font-secondary px-3 py-2 text-sm transition-colors hover:bg-[#eee] hover:text-black dark:hover:bg-zinc-800 dark:hover:text-white flex items-center rounded-sm cursor-pointer"
+            className="font-secondary px-3 py-2 text-sm transition-colors hover:bg-[#eee] hover:text-black dark:hover:bg-zinc-800 dark:hover:text-white flex items-center cursor-pointer"
             onClick={() => setShowCreateCollectionDialog(true)}
           >
             <Plus size={15} />

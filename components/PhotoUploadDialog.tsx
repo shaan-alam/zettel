@@ -138,14 +138,16 @@ const PhotoUploadDialog: React.FC<PhotoUploadDialogProps> = ({
           )}
           {file && (
             <>
-              <p className="block mb-2 text-center text-black">Uploading...</p>
+              <p className="block mb-2 text-center text-black dark:text-white">
+                {!fileURL ? "Uploading..." : "Completed"}
+              </p>
               <Progress value={fileUploadProgress} />
             </>
           )}
           {fileURL && (
             <Input
               value={`![alt text](${fileURL})`}
-              onClick={() => navigator.clipboard.writeText(fileURL)}
+              onClick={() => navigator.clipboard.writeText(`![alt text](${fileURL})`)}
               className="mt-2 block"
             />
           )}
