@@ -79,7 +79,7 @@ const Appbar = () => {
           {!isLoading &&
             data &&
             data.collections.map((collection) => (
-              <Link href={`/${collection._id}`}>
+              <Link href={`/${collection._id}`} key={collection._id}>
                 <div
                   className={clsx(
                     "font-secondary px-3 py-1 my-1 text-sm transition-colors flex items-center",

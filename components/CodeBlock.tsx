@@ -20,7 +20,7 @@ const CodeBlock = ({ code, language }: CodeBlockProps) => {
     codeBlock && (
       <div className="bg-[#011627] p-2 overflow-auto rounded-md">
         <Highlight
-          theme={themes.nightOwl}
+          theme={themes.jettwaveDark}
           code={codeBlock as string}
           language={lang as string}
         >

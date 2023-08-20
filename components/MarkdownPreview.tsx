@@ -26,7 +26,9 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ title, body }) => {
             return (
               <CodeBlock
                 code={props.children[0]}
-                language={'tsx'}
+                language={
+                  !props.inline ? props.className.split("-")[1] : "bash"
+                }
               />
             );
           },
