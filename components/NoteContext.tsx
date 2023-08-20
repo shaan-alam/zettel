@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { NoteInterface } from "@/api/collection";
 
 export interface IContextType {
