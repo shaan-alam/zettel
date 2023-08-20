@@ -15,6 +15,7 @@ import MarkdownPreview from "./MarkdownPreview";
 import DeleteNoteAlert from "./DeleteNoteAlert";
 import { ScrollArea } from "./ui/scroll-area";
 import PhotoUploadDialog from "./PhotoUploadDialog";
+import { Button } from "./ui/button";
 
 interface MarkdownEditorProps {
   title: string | undefined;
@@ -31,8 +32,8 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
   const [isViewOnlyMode, setIsViewOnlyMode] = useState(false);
   const [showPhotoUploadDialog, setShowPhotoUploadDialog] = useState(false);
 
-  const debouncedEditorTitle = useDebounce(editorTitle, 1000);
-  const debouncedEditorContent = useDebounce(editorContent, 1000);
+  const debouncedEditorTitle = useDebounce(editorTitle, 2000);
+  const debouncedEditorContent = useDebounce(editorContent, 2000);
 
   const { mutate, isLoading } = useMutation({
     mutationFn: async (noteData: SaveNoteRequestBody) => {
@@ -70,29 +71,35 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
     <div>
       <div className="flex items-center justify-start p-4 border-b">
         {isViewOnlyMode ? (
-          <span
-            className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4 dark:hover:bg-zinc-800"
+          <Button
+            variant="outline"
+            size="icon"
+            className="mr-4"
             onClick={() => setIsViewOnlyMode(false)}
           >
             <EyeOffIcon size={20} />
-          </span>
+          </Button>
         ) : (
-          <span
-            className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4 dark:hover:bg-zinc-800"
+          <Button
+            variant="outline"
+            size="icon"
+            className="mr-4"
             onClick={() => setIsViewOnlyMode(true)}
           >
             <EyeIcon size={20} />
-          </span>
+          </Button>
         )}
-        <span
-          className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4 dark:hover:bg-zinc-800"
+        <Button
+          variant="outline"
+          size="icon"
+          className="mr-4"
           onClick={() => setShowPhotoUploadDialog(true)}
         >
           <Camera size={20} />
-        </span>
-        <span className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-red-500 mr-4 dark:hover:bg-zinc-800">
+        </Button>
+        <Button variant="outline" size="icon" className="mr-4 text-red-500 hover:bg-red-500 hover:text-white">
           <DeleteNoteAlert noteId={selectedNote?._id as string} />
-        </span>
+        </Button>
         <span className="ml-4">
           {isLoading && <p className="text-gray-300 italic">Saving...</p>}
         </span>
@@ -103,7 +110,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({ title, body }) => {
       />
       <ScrollArea className="h-[88vh]">
         {isViewOnlyMode ? (
-          <MarkdownPreview title={title} body={editorContent} />
+          <MarkdownPreview title={editorTitle} body={editorContent} />
         ) : (
           <div>
             <textarea

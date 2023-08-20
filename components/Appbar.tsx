@@ -47,18 +47,15 @@ const Appbar = () => {
           <img src={user?.avatar} alt={user?.fullName} className="h-10 w-10" />
           &nbsp;{user?.fullName}
         </div>
-        <div className="logout-btn">
-          <Button variant="link">
-            <span
-              className="p-2  hover:bg-gray-50 rounded-full cursor-pointer text-gray-500 mr-4 dark:hover:bg-zinc-800"
-              onClick={logOut}
-            >
+        <div className="links flex items-center">
+          <div className="theme-toggler mr-2">
+            <ModeToggle></ModeToggle>
+          </div>
+          <div className="logout-btn">
+            <Button variant="outline" size="icon" onClick={logOut}>
               <LogOut size={20} />
-            </span>
-          </Button>
-        </div>
-        <div className="theme-toggler">
-          <ModeToggle></ModeToggle>
+            </Button>
+          </div>
         </div>
       </div>
       <ScrollArea className="h-[90vh]">
