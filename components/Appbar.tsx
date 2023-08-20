@@ -7,15 +7,7 @@ import clsx from "clsx";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { AuthContext, IAuthContextType } from "./AuthContext";
-import {
-  Folder,
-  FolderClosed,
-  FolderClosedIcon,
-  FolderCog,
-  FolderIcon,
-  LogOut,
-  Plus,
-} from "lucide-react";
+import { Folder, LogOut, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 import { ModeToggle } from "./theme-toggle";
@@ -24,6 +16,7 @@ const Appbar = () => {
   const router = useRouter();
 
   const { user, setUser } = useContext(AuthContext) as IAuthContextType;
+
   const [showCreateCollectionDialog, setShowCreateCollectionDialog] =
     useState(false);
 
