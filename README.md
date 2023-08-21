@@ -1,38 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+![alt text](https://firebasestorage.googleapis.com/v0/b/zettel-b2004.appspot.com/o/images%2Fa27ec947-5035-4519-9fec-2316a8cc3eb2.jpg?alt=media&token=bec6d4e5-b577-42f7-ad37-4008f649e251)
 
-First, run the development server:
+## Introduction
+Introducing Zettel: Your Markdown Note-Taking Companion
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+Elevate your note-taking experience with Zettel – a harmonious blend of simplicity and sophistication. Seamlessly capture thoughts and ideas in the elegance of Markdown, while effortlessly organizing them into vibrant collections, each adorned with its unique color code for easy categorization. Unveil the beauty of your code with syntax highlighting, and embrace the comfort of Dark Mode for extended productivity. Welcome to Zettel, where note-taking becomes a refined art, and your ideas find a canvas to flourish.
+
+## Technologies Used 👩‍💻️
+* Next 13 - Frontend
+* TailwindCSS - CSS Library
+* shadcn/ui - Tailwind Components
+* React Query - Data Fetching Library
+* Formik - Form handling Library
+* Yup - For schema validation
+* TypeScript - To add types to the application
+* prismjs - Syntax Highlighting
+* Firebase - Authentication & Storage
+* React Markdown - Render markdown in HTML
+* next-themes - To handle light/dark mode switching
+
+## Installation & Configuration
+### Client Configuration
+* Clone this repo by typing `git clone https://github.com/shaan-alam/zettel.git` in your terminal.
+* Create a .env.local file and paste your firebase config in here.
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+NEXT_PUBLIC_API_KEY=
+NEXT_PUBLIC_AUTH_DOMAIN=
+NEXT_PUBLIC_PROJECT_ID=
+NEXT_PUBLIC_STORAGE_BUCKET=
+NEXT_PUBLIC_MESSAGE_SENDER_ID=
+NEXT_PUBLIC_APP_ID=
+NEXT_PUBLIC_MEASUREMENT_ID=
+```
+* Run `npm ru dev` to start the client.
+* ### Server Configuration
+* Clone the backend repo by typing `git clone https://github.com/shaan-alam/Zettel-backend.git` in your terminal.
+* Create .env file and paste the following config.
+```
+MONGO_URI=
+PORT=
+JWT_SECRET=
+```
+* Run `node src/index.ts` to start the server.
