@@ -25,7 +25,7 @@ const FormInput = <T,>({
       <Input
         type={type}
         className={clsx(
-          "border text-[#333] px-4 py-2 rounded-sm focus:ring-2 outline-none text-sm w-full",
+          "border text-[#333] dark:text-white px-4 py-2 rounded-sm focus:ring-2 outline-none text-sm w-full",
           className
         )}
         placeholder={placeholder}

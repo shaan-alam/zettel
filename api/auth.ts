@@ -16,3 +16,4 @@ export interface AuthResponseInterface {
 
 export const signUp = <T, >(body: T) => API.post<AuthResponseInterface>('/auth/signUp', { ...body })
 export const signIn = <T, >(body: T) => API.post<AuthResponseInterface>('/auth/signIn', { ...body })
+export const oAuth = <T, >(body: T) => API.post<AuthResponseInterface>(`/auth/oauth`, { ...body })

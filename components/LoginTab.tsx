@@ -8,14 +8,24 @@ import {
 } from "@/components/ui/card";
 import FormInput from "@/components/FormInput";
 import { useRouter } from "next/router";
-import { Loader2 } from "lucide-react";
+import { Github, GithubIcon, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useMutation } from "@tanstack/react-query";
-import { UserInterface, signIn } from "@/api/auth";
+import { UserInterface, oAuth, signIn } from "@/api/auth";
 import axios from "axios";
 import { AuthContext, IAuthContextType } from "./AuthContext";
+import { Separator } from "./ui/separator";
+import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth } from "@/firebase";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import GoogleLogin from "./GoogleLogin";
+import GithubLogin from "./GithubLogin";
 
 interface LoginFormFormikProps {
   email: string;
@@ -98,7 +108,10 @@ const LoginTab = () => {
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Login
           </Button>
+          <Separator className="my-6" />
         </form>
+        <GoogleLogin />
+        <GithubLogin />
       </CardContent>
     </Card>
   );
