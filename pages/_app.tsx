@@ -6,6 +6,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import NoteContextProvider from "@/components/NoteContext";
 import AuthContextProvider from "@/components/AuthContext";
 import { ThemeProvider } from "@/components/theme-provider";
+import NextNProgress from "nextjs-progressbar";
+import { useTheme } from "next-themes";
 
 const client = new QueryClient();
 
@@ -16,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <AuthContextProvider>
           <NoteContextProvider>
             <Component {...pageProps} />
+            <NextNProgress />
           </NoteContextProvider>
         </AuthContextProvider>
       </ThemeProvider>

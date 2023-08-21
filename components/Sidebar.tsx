@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { IContextType, NoteContext } from "./NoteContext";
 import { ScrollArea } from "./ui/scroll-area";
 import ReactTruncate from "react-text-truncate";
+import { Skeleton } from "./ui/skeleton";
 
 const Sidebar = () => {
   const router = useRouter();
@@ -77,6 +78,18 @@ const Sidebar = () => {
             <div className="flex items-center justify-center h-[80vh] text-center text-sm text-gray-400">
               No Notes to show. Click on &apos;New Note&apos; to create a new
               note!
+            </div>
+          )}
+          {isLoading && (
+            <div className="p-4">
+              <Skeleton className="h-[50px] w-full my-4" />
+              <Skeleton className="h-[50px] w-full my-4" />
+              <Skeleton className="h-[50px] w-full my-4" />
+              <Skeleton className="h-[50px] w-full my-4" />
+              <Skeleton className="h-[50px] w-full my-4" />
+              <Skeleton className="h-[50px] w-full my-4" />
+              <Skeleton className="h-[50px] w-full my-4" />
+              <Skeleton className="h-[50px] w-full my-4" />
             </div>
           )}
           {data?.notes.map((note) => (

@@ -11,6 +11,7 @@ import { Folder, LogOut, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 import { ModeToggle } from "./theme-toggle";
+import { Skeleton } from "./ui/skeleton";
 
 const Appbar = () => {
   const router = useRouter();
@@ -75,6 +76,20 @@ const Appbar = () => {
             <p className="text-sm text-gray-400 p-4">
               Create a Collection to start making notes!
             </p>
+          )}
+          {isLoading && (
+            <div className="p-4">
+              <Skeleton className="h-[20px] w-full my-4" />
+              <Skeleton className="h-[20px] w-full my-4" />
+              <Skeleton className="h-[20px] w-full my-4" />
+              <Skeleton className="h-[20px] w-full my-4" />
+              <Skeleton className="h-[20px] w-full my-4" />
+              <Skeleton className="h-[20px] w-full my-4" />
+              <Skeleton className="h-[20px] w-full my-4" />
+              <Skeleton className="h-[20px] w-full my-4" />
+              <Skeleton className="h-[20px] w-full my-4" />
+              <Skeleton className="h-[20px] w-full my-4" />
+            </div>
           )}
           {!isLoading &&
             data &&
