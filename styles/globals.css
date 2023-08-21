@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  overflow: hidden;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -80,5 +75,30 @@ body {
   }
   ul {
     list-style: disc;
+  }
+}
+
+.bg-tint {
+  animation: bg-change 20s ease-in-out infinite;
+}
+
+@keyframes bg-change {
+  0% {
+    @apply bg-emerald-400;
+  }
+  20% {
+    @apply bg-blue-400;
+  }
+  40% {
+    @apply bg-purple-400;
+  }
+  60% {
+    @apply bg-orange-400;
+  }
+  80% {
+    @apply bg-red-400;
+  }
+  100% {
+    @apply bg-pink-400;
   }
 }
