@@ -124,7 +124,7 @@ const Homepage = () => {
                 <span className="font-bold text-white dark:text-black">
                   Dark Mode:
                 </span>
-                &nbsp; We've got Dark mode too! 🌙
+                &nbsp; We&apos;ve got Dark mode too! 🌙
               </li>
               <li className="my-4">
                 <span className="font-bold text-white dark:text-black">
@@ -155,10 +155,10 @@ const Homepage = () => {
               Meet the Creator
             </h1>
             <p className="leading-7">
-              Hi👋 I'm Shaan Alam. I am the creator of Zettel. I created because
-              I'm an avid note-taker and I keep using Notion for that. I thought
-              'why not create a note taking app of my own?'. And I started
-              zettel as a personal side project.
+              Hi👋 I&apos;m Shaan Alam. I am the creator of Zettel. I created Zettel
+              because I am an avid note-taker and I keep using Notion for that.
+              I thought why not create a note taking app of my own?. And I
+              started zettel as a personal side project.
             </p>
             <p className="leading-7 mt-4">
               If you want to contact me for some future project, feel free to
