@@ -26,6 +26,7 @@ import { auth } from "@/firebase";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import GoogleLogin from "./GoogleLogin";
 import GithubLogin from "./GithubLogin";
+import OAuth from "./OAuth";
 
 interface LoginFormFormikProps {
   email: string;
@@ -108,10 +109,8 @@ const LoginTab = () => {
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Login
           </Button>
-          <Separator className="my-6" />
         </form>
-        <GoogleLogin />
-        <GithubLogin />
+        <OAuth />
       </CardContent>
     </Card>
   );

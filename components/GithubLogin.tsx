@@ -9,6 +9,7 @@ import { auth } from "@/firebase";
 import { AuthContext, IAuthContextType } from "./AuthContext";
 import { Loader2 } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import useOAuth from "@/hooks/useOAuth";
 
 interface OAuthDataInterface {
   email: string;
@@ -21,17 +22,7 @@ const GithubLogin = () => {
 
   const { setUser } = useContext(AuthContext) as IAuthContextType;
 
-  const { isLoading: isSigningIn, mutate: oAuthLogin } = useMutation({
-    mutationFn: async (oAuthData: OAuthDataInterface) => {
-      try {
-        const result = await oAuth(oAuthData);
-        return result.data;
-      } catch (err) {
-        if (axios.isAxiosError(err)) {
-          throw new Error(err.response?.data.message);
-        }
-      }
-    },
+  const { isLoading, mutate } = useOAuth({
     onSuccess: (result) => {
       localStorage.setItem("user", JSON.stringify(result));
       setUser(result?.user as UserInterface);
@@ -43,7 +34,7 @@ const GithubLogin = () => {
     const provider = new GithubAuthProvider();
     signInWithPopup(auth, provider).then((result) => {
       const { email, displayName, photoURL } = result.user;
-      oAuthLogin({
+      mutate({
         email: email as string,
         fullName: displayName as string,
         avatar: photoURL as string,
@@ -54,12 +45,12 @@ const GithubLogin = () => {
   return (
     <Button
       variant="outline"
-      disabled={isSigningIn}
+      disabled={isLoading}
       className="w-full"
       onClick={githubLogin}
     >
-      {!isSigningIn && <GitHubLogoIcon />}
-      {isSigningIn && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+      {!isLoading && <GitHubLogoIcon />}
+      {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
       &nbsp;GitHub
     </Button>
   );

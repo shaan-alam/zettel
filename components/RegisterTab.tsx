@@ -15,6 +15,7 @@ import * as yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import { signUp } from "@/api/auth";
 import axios from "axios";
+import OAuth from "./OAuth";
 
 interface RegisterTabFormProps {
   email: string;
@@ -65,8 +66,8 @@ const RegisterTab = () => {
       }
     },
     onSuccess: (values) => {
-      localStorage.setItem('user', JSON.stringify(values));
-      router.push('/app')
+      localStorage.setItem("user", JSON.stringify(values));
+      router.push("/app");
     },
     onError: (err: ReturnType<ErrorConstructor>) => {
       setServerRegisterError(err.message);
@@ -119,6 +120,7 @@ const RegisterTab = () => {
             Create Account
           </Button>
         </form>
+        <OAuth />
       </CardContent>
     </Card>
   );
