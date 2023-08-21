@@ -1,17 +1,20 @@
+import { useState } from "react";
 import { ModeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
-import { MoveRight } from "lucide-react";
+import { Menu, MoveRight } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 
 const Homepage = () => {
   const { theme } = useTheme();
 
+  const [navOpen, setNavOpen] = useState(false);
+
   return (
     <>
       <section>
-        <nav className="w-full p-4 bg-white dark:bg-black border-b backdrop-blur-md rounded-md bg-clip-padding backdrop-filter bg-opacity-80 border border-gray-100 dark:border-black">
-          <div className="container w-[90%] md:w-[60%] mx-auto flex items-center">
+        <nav className="w-full fixed top-0 z-50 p-4 bg-white dark:bg-black border-b backdrop-blur-md bg-clip-padding backdrop-filter bg-opacity-80 dark:bg-opacity-50 border border-gray-100 dark:border-black">
+          <div className="container w-[90%] md:w-[60%] mx-auto flex items-center relative">
             <div className="logo">
               <img
                 src={
@@ -23,7 +26,37 @@ const Homepage = () => {
                 className="h-10 w-full object-cover"
               />
             </div>
-            <div className="menu w-full">
+            <div className="block md:hidden ml-auto">
+              <Menu
+                className="cursor-pointer"
+                onClick={() => setNavOpen(!navOpen)}
+              />
+              {navOpen && (
+                <div className="nav-menu p-6 fixed top-[100%] left-0 w-full bg-white dark:bg-black border-b border-gray-300 dark:border-black">
+                  <ul className="list-none">
+                    <li className="my-4">
+                      <Link href="/">Home</Link>
+                    </li>
+                    <li className="my-4">
+                      <a
+                        href="https://github.com/shaan-alam/zettel"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        GitHub
+                      </a>
+                    </li>
+                    <li className="my-4">
+                      <Link href="/app/auth">Log in</Link>
+                    </li>
+                    <li>
+                      <ModeToggle />
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
+            <div className="hidden md:block menu w-full">
               <ul className="flex items-center justify-end list-none">
                 <li className="mr-4">
                   <Link href="/">Home</Link>
@@ -155,9 +188,9 @@ const Homepage = () => {
               Meet the Creator
             </h1>
             <p className="leading-7">
-              Hi👋 I&apos;m Shaan Alam. I am the creator of Zettel. I created Zettel
-              because I am an avid note-taker and I keep using Notion for that.
-              I thought why not create a note taking app of my own?. And I
+              Hi👋 I&apos;m Shaan Alam. I am the creator of Zettel. I created
+              Zettel because I am an avid note-taker and I keep using Notion for
+              that. I thought why not create a note taking app of my own?. And I
               started zettel as a personal side project.
             </p>
             <p className="leading-7 mt-4">
