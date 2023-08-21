@@ -60,7 +60,7 @@ const LoginTab = () => {
     onSuccess: (values) => {
       localStorage.setItem("user", JSON.stringify(values));
       setUser(values?.user as UserInterface);
-      router.push("/");
+      router.push("/app");
     },
     onError: (err: ReturnType<ErrorConstructor>) => {
       setServerLoginError(err.message);

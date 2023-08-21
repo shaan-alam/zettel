@@ -66,7 +66,7 @@ const RegisterTab = () => {
     },
     onSuccess: (values) => {
       localStorage.setItem('user', JSON.stringify(values));
-      router.push('/')
+      router.push('/app')
     },
     onError: (err: ReturnType<ErrorConstructor>) => {
       setServerRegisterError(err.message);

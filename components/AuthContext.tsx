@@ -23,9 +23,9 @@ const AuthContextProvider: React.FC<{
 
     if (token !== "") {
       setUser(payload.user);
-      router.push("/");
+      router.push("/app");
     } else {
-      router.push("/auth");
+      router.push("/");
     }
   }, []);
 

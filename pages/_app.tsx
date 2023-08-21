@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </NoteContextProvider>
         </AuthContextProvider>
       </ThemeProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }
