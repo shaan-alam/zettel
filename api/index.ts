@@ -1,8 +1,9 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
 import { AuthResponseInterface } from './auth'
+import { config } from '@/constants';
 
 export const getAPIInstance = () => {
-  const API = axios.create({ baseURL: "https://zettel-backend.onrender.com" })
+  const API = axios.create({ baseURL: config.SERVER })
 
   API.interceptors.request.use((req: InternalAxiosRequestConfig) => {
     const payload: AuthResponseInterface = JSON.parse(localStorage.getItem('user') || "{}");
