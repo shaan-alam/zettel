@@ -1,6 +1,8 @@
 
 ![alt text](https://firebasestorage.googleapis.com/v0/b/zettel-b2004.appspot.com/o/images%2Fa27ec947-5035-4519-9fec-2316a8cc3eb2.jpg?alt=media&token=bec6d4e5-b577-42f7-ad37-4008f649e251)
 
+![License](https://img.shields.io/github/license/shaan71845/facebook2.0) ![Made with love](https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F-red) ![Github forks](https://img.shields.io/github/forks/shaan71845/facebook2.0) ![Github Start](https://img.shields.io/github/stars/shaan71845/facebook2.0)
+
 ## Introduction
 Introducing Zettel: Your Markdown Note-Taking Companion
 
