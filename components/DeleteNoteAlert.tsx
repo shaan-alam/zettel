@@ -10,12 +10,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Loader2, TrashIcon } from "lucide-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteNote } from "@/api/note";
-import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "./ui/button";
 import { useRouter } from "next/router";
 import { IContextType, NoteContext } from "./NoteContext";
+import useDeleteNoteMutation from "@/hooks/useDeleteNoteMutation";
 
 interface DeleteNoteAlertProps {
   noteId: string;
@@ -27,24 +26,18 @@ const DeleteNoteAlert: React.FC<DeleteNoteAlertProps> = ({ noteId }) => {
 
   const { setSelectedNote } = useContext(NoteContext) as IContextType;
 
-  const { isLoading, mutate } = useMutation({
-    mutationFn: async () => {
-      try {
-        await deleteNote(noteId);
-      } catch (err) {
-        if (axios.isAxiosError(err)) {
-          throw new Error(err.response?.data.message);
-        }
-      }
-    },
-    onSuccess: () => {
-      queryClient.refetchQueries([
-        "get-collection-notes",
-        `${router.query["id"]}`,
-      ]);
-      setSelectedNote(null);
-    },
-  });
+  const { mutate: deleteNote, isLoading: isDeletingNote } =
+    useDeleteNoteMutation({
+      options: {
+        onSuccess: () => {
+          queryClient.refetchQueries([
+            "get-collection-notes",
+            `${router.query["id"]}`,
+          ]);
+          setSelectedNote(null);
+        },
+      },
+    });
 
   return (
     <div>
@@ -64,10 +57,12 @@ const DeleteNoteAlert: React.FC<DeleteNoteAlertProps> = ({ noteId }) => {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <Button
               variant="destructive"
-              disabled={isLoading}
-              onClick={() => mutate()}
+              disabled={isDeletingNote}
+              onClick={() => deleteNote(noteId)}
             >
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {isDeletingNote && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
               &nbsp; Continue
             </Button>
           </AlertDialogFooter>

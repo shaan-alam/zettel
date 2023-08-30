@@ -3,7 +3,7 @@ import { AuthResponseInterface } from './auth'
 import { config } from '@/constants';
 
 export const getAPIInstance = () => {
-  const API = axios.create({ baseURL: config.SERVER })
+  const API = axios.create({ baseURL: config.DEV_SERVER })
 
   API.interceptors.request.use((req: InternalAxiosRequestConfig) => {
     const payload: AuthResponseInterface = JSON.parse(localStorage.getItem('user') || "{}");

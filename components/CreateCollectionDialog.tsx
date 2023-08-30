@@ -18,6 +18,8 @@ import FormInput from "@/components/FormInput";
 import { ChromePicker } from "react-color";
 import { Button } from "@/components/ui/button";
 import { IContextType, NoteContext } from "./NoteContext";
+import useCreateCollection from "@/hooks/useCreateCollection";
+import useCreateCollectionMutation from "@/hooks/useCreateCollection";
 
 interface CreateCollectionDialogProps {
   open: boolean;
@@ -52,28 +54,18 @@ const CreateCollectionDialog: React.FC<CreateCollectionDialogProps> = ({
     },
   });
 
-  const { isLoading, mutate } = useMutation(
-    async (formData: typeof formik.values) => {
-      try {
-        const res = await createCollection(formData);
-        return res.data;
-      } catch (err) {
-        if (axios.isAxiosError(err)) {
-          throw new Error(err.response?.data.message);
-        }
-      }
-    },
-    {
+  const { isLoading, mutate } = useCreateCollectionMutation({
+    options: {
       onSuccess: () => {
         queryClient.invalidateQueries(["get-collections"]);
         setIsOpen(false);
         setSelectedNote(null);
       },
-      onError: (err: ReturnType<ErrorConstructor>) => {
-        setServerErrorResponse(err.message);
+      onError: (err: unknown) => {
+        if (axios.isAxiosError(err)) setServerErrorResponse(err.message);
       },
-    }
-  );
+    },
+  });
 
   return (
     <Dialog open={open} onOpenChange={() => setIsOpen(false)}>

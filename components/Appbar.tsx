@@ -12,6 +12,7 @@ import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 import { ModeToggle } from "./theme-toggle";
 import { Skeleton } from "./ui/skeleton";
+import useCollectionQuery from "@/hooks/useCollectionQuery";
 
 const Appbar = () => {
   const router = useRouter();
@@ -21,19 +22,7 @@ const Appbar = () => {
   const [showCreateCollectionDialog, setShowCreateCollectionDialog] =
     useState(false);
 
-  const { isLoading, data } = useQuery({
-    queryKey: ["get-collections"],
-    queryFn: async () => {
-      try {
-        const result = await getCollections();
-        return result.data;
-      } catch (err) {
-        if (axios.isAxiosError(err)) {
-          throw new Error(err.response?.data.message);
-        }
-      }
-    },
-  });
+  const { isLoading, data } = useCollectionQuery();
 
   const logOut = () => {
     localStorage.setItem("user", "");

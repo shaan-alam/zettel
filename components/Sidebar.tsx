@@ -1,15 +1,15 @@
-import { NoteInterface, getCollectionNotes } from "@/api/collection";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { NoteInterface } from "@/api/collection";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import axios from "axios";
-import { Plus } from "lucide-react";
-import { createNote } from "@/api/note";
+import { Loader2, Plus } from "lucide-react";
 import clsx from "clsx";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { IContextType, NoteContext } from "./NoteContext";
 import { ScrollArea } from "./ui/scroll-area";
 import ReactTruncate from "react-text-truncate";
 import { Skeleton } from "./ui/skeleton";
+import useCreateNoteMutation from "@/hooks/useCreateNoteMutation";
+import useNoteQuery from "@/hooks/useNoteQuery";
 
 const Sidebar = () => {
   const router = useRouter();
@@ -18,46 +18,27 @@ const Sidebar = () => {
     NoteContext
   ) as IContextType;
 
-  // Load all the notes of this collection
-  const { isLoading, data } = useQuery({
-    queryKey: ["get-collection-notes", `${router.query["id"]}`],
-    queryFn: async () => {
-      try {
-        const result = await getCollectionNotes(`${router.query["id"]}`);
-        return result.data.result;
-      } catch (err) {
-        if (axios.isAxiosError(err)) {
-          throw new Error(err.response?.data.message);
-        }
-      }
-    },
-    onSuccess: (value) => {
-      console.log("ntoes", value);
-    },
-  });
+  const {
+    refetch: retrieveNotes,
+    data: retrievedNotes,
+    isLoading: isRetrievingNotes,
+  } = useNoteQuery({ collectionId: `${router.query["id"]}` });
+
+  useEffect(() => {
+    retrieveNotes();
+  }, [retrieveNotes]);
 
   // Create a new note
-  const { mutate } = useMutation({
-    mutationFn: async () => {
-      try {
-        const result = await createNote({
-          title: "Untitled",
-          body: "",
-          collection: `${router.query["id"]}`,
-        });
-        return result.data.newNote;
-      } catch (err) {
-        if (axios.isAxiosError(err)) {
-          throw new Error(err.response?.data.message);
-        }
-      }
-    },
-    onSuccess: (note) => {
-      queryClient.refetchQueries([
-        "get-collection-notes",
-        `${router.query["id"]}`,
-      ]);
-      setSelectedNote(note as NoteInterface);
+  const { mutate, isLoading } = useCreateNoteMutation({
+    collectionId: `${router.query["id"]}`,
+    options: {
+      onSuccess: (note) => {
+        queryClient.refetchQueries([
+          "get-collection-notes",
+          `${router.query["id"]}`,
+        ]);
+        setSelectedNote(note as NoteInterface);
+      },
     },
   });
 
@@ -68,19 +49,20 @@ const Sidebar = () => {
           className="p-2 border rounded-sm text-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-zinc-800 flex items-center"
           onClick={() => mutate()}
         >
-          <Plus size={20} />
+          {!isLoading && <Plus size={20} />}
+          {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           &nbsp;New Note
         </span>
       </div>
       <ScrollArea className="h-[90vh]">
         <div>
-          {data?.notes.length === 0 && (
+          {retrievedNotes?.notes.length === 0 && (
             <div className="flex items-center justify-center h-[80vh] text-center text-sm text-gray-400">
               No Notes to show. Click on &apos;New Note&apos; to create a new
               note!
             </div>
           )}
-          {isLoading && (
+          {isRetrievingNotes && (
             <div className="p-4">
               <Skeleton className="h-[50px] w-full my-4" />
               <Skeleton className="h-[50px] w-full my-4" />
@@ -92,7 +74,7 @@ const Sidebar = () => {
               <Skeleton className="h-[50px] w-full my-4" />
             </div>
           )}
-          {data?.notes.map((note) => (
+          {retrievedNotes?.notes.map((note) => (
             <div
               key={note._id}
               className={clsx(
